@@ -16,6 +16,8 @@ class Programa:
         self.principal()
 
     def label_fecha(self):
+        """"Metodo que fija un reloj (como un label) en tiempo real, en la
+        ventana principal"""
         dia = time.strftime("%d")
         mes = time.strftime("%m")
         year = time.strftime("%Y")
@@ -54,7 +56,7 @@ class Programa:
         self.tabs.add(self.vista_mensual_frame,text=" Vista Mes Actual")
 
 
-
+        # Calendario y sus configuraciones
         self.now = datetime.now()
         self.cal = Calendar(contenedor_botones, selectmode="day", year=self.now.year, month=self.now.month, day=self.now.day, locale="es",
                        background="black", disabledbackground="black", bordercolor="black",
@@ -65,6 +67,7 @@ class Programa:
                        )
         self.cal.place(x=5,y=5,width=210,height=150)
 
+        # Boton que obtiene la fecha del calendario
         self.fecha_evento_button = tk.Button(contenedor_botones, text="Buscar Evento",
                                          font=("times new roman", 11, "bold"),command=self.buscar_fecha)
 
@@ -89,7 +92,7 @@ class Programa:
         self.vista_semanal_button.config(bg="blue")
         self.vista_semanal_button.place(x=155,y=285)
 
-        # Boton que abre una ventana para agregar un evento **
+        # Boton que abre una ventana para agregar un evento
         self.agregar_evento_button = tk.Button(self.root, text="Agregar Evento", command=self.agregar_evento_ventana,
                                                font=("times new roman", 11, "bold"))
         self.agregar_evento_button.config(fg="white")
@@ -97,7 +100,7 @@ class Programa:
         self.agregar_evento_button.place(x=20,y=285)
 
         # Boton que abre ventana para modificar los datos de un evento. Se insertan los
-        # datos automaticamente, obtenidos de lo que se haya seleccionado en el TreeView **
+        # datos automaticamente, obtenidos de lo que se haya seleccionado en el TreeView
         self.modificar_evento_button = tk.Button(self.root, text="Modificar Evento",
                                                  command=self.modificar_evento_ventana
                                                  , font=("times new roman", 11, "bold"))
@@ -118,11 +121,11 @@ class Programa:
         self.salir_button.place(x=20,y=440)
 
         self.tabla_treeview_general()
-        # self.tabla_treeview_mensual()
 
         self.label_reloj = ttk.Label(self.root,text=f"Bienvenido",font=("Helvetica",10))
         self.label_reloj.place(x=90, y=445)
         self.label_reloj.after(1000,self.label_fecha)
+
         self.vista_mensual()
         self.eventos_del_mes()
         self.root.mainloop()
@@ -152,8 +155,6 @@ class Programa:
 
     def tabla_treeview_general(self):
         """Tabla que muestra los datos de los eventos. Obtenidos desde el archivo agenda.csv"""
-        # self.tabla_contenedor = ttk.Frame(self.vista_general)
-        # self.tabla_contenedor.place(x=0,y=0)
         self.tabla = ttk.Treeview(self.vista_general, height=15,
                                   columns=("#1","#2","#3","#4","#5","#6","#7","#8","#9"))
         self.tabla.place(x=0,y=0)
@@ -191,11 +192,12 @@ class Programa:
 
 
     def eventos_del_mes(self):
-        """Tabla que muestra los datos de los eventos. Obtenidos desde el archivo agenda.csv"""
+        """Tabla que muestra los datos de los eventos del mes actual. Obtenidos desde el archivo agenda.csv"""
         with open("agenda.csv", "r") as archivo:
             agenda = []
             eventos = csv.reader(archivo)
             for linea in eventos:
+                # Se omiten las lineas en blanco y las cabeceras
                 if linea != [] and linea !=['Agendado', 'Titulo', 'Fecha', 'Hora Inicio', 'Hora Fin', 'Importancia', 'Descripcion', 'Etiquetas', 'Codigo']:
                     auxiliar = linea[2]
                     auxiliar2 = auxiliar.split("/")
@@ -394,7 +396,7 @@ class Programa:
             self.evento_ventana.destroy()
             self.tabla.delete(*self.tabla.get_children())
             self.tabla_treeview_general()
-            # self.tabla_treeview_mensual()
+
 
     def agregar_evento(self,contenido):
         """Metodo que inserta los valores (pasados por parametros) en el archvio csv"""
@@ -443,7 +445,6 @@ class Programa:
             self.evento_ventana.destroy()
             self.tabla.delete(*self.tabla.get_children())
             self.tabla_treeview_general()
-            # self.tabla_treeview_mensual()
 
     def elmininar_evento(self):
         """Metodo que elimina un evento que se haya seleccionado"""
@@ -509,7 +510,10 @@ class Programa:
             self.ventana_buscador.mainloop()
 
     def buscar_fecha(self):
+        """Metodo que busca eventos de acuerdo a la fecha seleccionada en el Calendario"""
         self.seleccion = self.cal.get_date()
+        # Se lee el archivo csv, filtrando los eventos que coincidan con la fecha
+        # seleccionada y guardandolo en una lista
         with open("agenda.csv","r") as archivo:
             next(archivo)
             agenda = []
@@ -542,9 +546,12 @@ class Programa:
         self.ventana_buscador.mainloop()
 
     def vista_semanal(self):
+        """Metodo que abre una ventana y muestra los eventos de la semana actual"""
         show_week_events(datetime.today())
 
     def vista_mensual(self):
+        """Metodo que muestra un calendario en el cual se resaltan
+        los dias con algun evento"""
         show_calendar(self.vista_mensual_frame)
 
 Programa()
