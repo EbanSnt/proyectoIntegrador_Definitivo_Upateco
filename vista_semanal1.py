@@ -9,7 +9,7 @@ def show_week_events(start_date):
     root.title('Agenda Semanal')
     root.geometry('800x300+100+150')
     root.resizable(False, False)
-    root.config(background="grey")
+    root.config(background="#BEBEBE")
     day_frame = tk.Frame(root)
     day_frame.pack(pady=10)
 
@@ -55,41 +55,46 @@ def show_week_events(start_date):
         nonlocal week_start, week_end
         week_start -= timedelta(days=7)
         week_end = week_start + timedelta(days=6)
-        root.destroy()  # destroy the current window
-        show_week_events(week_start)  # call show_week_events with updated start_date
+        root.destroy()  # destruir la ventana actual
+        show_week_events(week_start)  # llamar a show_week_events con fecha_inicio actualizada
 
     def show_next_week():
         nonlocal week_start, week_end
         week_start += timedelta(days=7)
         week_end = week_start + timedelta(days=6)
-        root.destroy()  # destroy the current window
-        show_week_events(week_start)  # call show_week_events with updated start_date
+        root.destroy()  # destruir la ventana actual
+        show_week_events(week_start)  # llamar a show_week_events con fecha_inicio actualizada
 
     prev_button = tk.Button(root, text='Semana anterior', command=show_prev_week)
-    prev_button.place(x=170,y=250)
+    prev_button.place(x=50,y=250)
     prev_button.config(fg="white",font=("Helvetica",9))
-    prev_button.config(bg="#000")
+    prev_button.config(bg="black")
 
     next_button = tk.Button(root, text='Próxima semana', command=show_next_week)
-    next_button.place(x=50,y=250)
+    next_button.place(x=170,y=250)
     next_button.config(fg="white",font=("Helvetica",9))
-    next_button.config(bg="#000")
+    next_button.config(bg="black")
 
     for day in days:
         if day in day_events:
             event_list = tk.Listbox(event_frame, width=17, height=10, borderwidth=2, relief='groove')
             for event in day_events[day]:
+                if event['Importancia'] == 'Importante':
+                    bg_color = '#99f1f8'  # celeste
+                else:
+                    bg_color = '#FFFFFF'  # blanco
                 event_list.insert(tk.END, event['Titulo'])
                 event_list.insert(tk.END, event['Descripcion'])
                 event_list.insert(tk.END, event['Fecha'])
                 event_list.insert(tk.END, '')
+            event_list.configure(background=bg_color)  # establecer el color de fondo
             event_list.pack(side=tk.LEFT, padx=4, pady=10)
         else:
             date_no_events = week_start + timedelta(days=days.index(day))
             tk.Label(event_frame, text=f"{date_no_events.strftime('%d/%m/%Y')}\nSin eventos", width=12, padx=13,
                     pady=10, borderwidth=2, relief='groove',background="#fff",foreground="#000",
-                     font=("Helvetica",9)).pack(side=tk.LEFT)
+                    font=("Helvetica",9)).pack(side=tk.LEFT)
 
     root.mainloop()
 
-#show_week_events(datetime.today())
+# show_week_events(datetime.today())

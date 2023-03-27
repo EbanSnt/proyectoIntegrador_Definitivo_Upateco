@@ -1,16 +1,8 @@
 Agendado,Titulo,Fecha,Hora Inicio,Hora Fin,Importancia,Descripcion,Etiquetas,Codigo
 
-26/03/2023,HTML,25/03/2023,16,18,Normal,,html curso,20230325
-26/03/2023,HTML,20/03/2023,16,18,Normal,,html curso,20230325
-26/03/2023,HTML,21/03/2023,16,18,Normal,,html curso,20230325
-26/03/2023,HTML,22/03/2023,16,18,Normal,,html curso,20230325
-26/03/2023,HTML,23/03/2023,16,18,Normal,,html curso,20230325
-26/03/2023,HTML,24/03/2023,16,18,Normal,,html curso,20230325
-26/03/2023,HTML,25/03/2023,16,18,Normal,,html curso,20230325
-26/03/2023,HTML,26/03/2023,16,18,Normal,,html curso,20230325
-26/03/2023,HTML,27/03/2023,16,18,Normal,,html curso,20230325
-26/03/2023,HTML,22/03/2023,16,18,Normal,,html curso,20230325
-26/03/2023,HTML,25/03/2023,16,18,Normal,hola como estan este es un mensaje,html curso,20230325
-26/03/2023,HTML2,25/03/2023,16,18,Normal,,html curso,20230325
-26/03/2023,HTML3,25/03/2023,16,18,Normal,,html curso,20230325
-26/03/2023,python,31/03/2023,18:47,19:47,Normal,,python,20230331
+27/03/2023,Curso Python,30/03/2023,7,9,Importante,,python,20230330
+27/03/2023,Curso Java,25/03/2023,8,9,Normal,,java curso,20230325
+27/03/2023,Curso HTML,28/03/2023,8,10,Normal,,curso html,20230328
+27/03/2023,Clase upateco,27/03/2023,8:29,9:29,Importante,,clase upateco,20230327
+27/03/2023,Clase proyecto,27/03/2023,9,13,Importante,presentar pantalla,clase proyecto upateco,20230327
+27/03/2023,Curso,12/03/2023,8:52,9:52,Normal,,curso,20230312

@@ -8,7 +8,7 @@ from tkinter import ttk, CENTER, messagebox, RIGHT
 from datetime import datetime
 from tkcalendar import *
 from PIL import Image, ImageTk
-from vista_semanal import *
+from vista_semanal1 import *
 from vista_mensual import *
 class Programa:
 
