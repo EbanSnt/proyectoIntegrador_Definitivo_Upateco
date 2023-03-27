@@ -54,6 +54,7 @@ class Programa:
                   font=("times new roman", 11)).place(x=20,y=340)
         self.tabs.add(self.vista_general, text="   General ")
         self.tabs.add(self.vista_mensual_frame,text=" Vista Mes Actual")
+        ttk.Label(self.vista_mensual_frame,text="La vista se actualiza cada vez\nque se inicia el programa").place(x=100,y=330)
 
 
         # Calendario y sus configuraciones
@@ -167,7 +168,7 @@ class Programa:
             now = datetime.now()
             self.mes = cal.monthdayscalendar(now.year, now.month)
             agenda = csv.DictReader(archivo_csv)
-            rows = sorted(agenda, reverse=True, key=operator.itemgetter('Codigo'))
+            rows = sorted(agenda, reverse=True, key=operator.itemgetter('Codigo')) #Sirve para ordenar la lista cronologicamente
             for linea in rows:
                 #Las variables obtienen los valores de las columnas. REVISAR
                 agendado = linea['Agendado']
@@ -483,7 +484,7 @@ class Programa:
         resultados = []
         with open("agenda.csv","r") as archivo:
             agenda = csv.DictReader(archivo)
-            rows = sorted(agenda, reverse=True, key=operator.itemgetter('Codigo'))
+            rows = sorted(agenda, reverse=True, key=operator.itemgetter('Codigo')) #Sirve para ordenar la lista cronologicamente
             for evento in rows:
                 etiquetas = evento['Etiquetas']
                 titulo = evento["Titulo"]
