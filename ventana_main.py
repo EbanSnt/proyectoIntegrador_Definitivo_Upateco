@@ -15,7 +15,7 @@ class Programa:
 
     def __init__(self):
         self.conn = mysql.connector.connect(user='root',
-                password='Djesteban1230++kali',
+                password='123456',
                 host='127.0.0.1',
                 database='agenda_proyecto')
         

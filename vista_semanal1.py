@@ -22,7 +22,7 @@ def show_week_events(start_date):
     event_frame.place(x=0,y=40,width=800)
 
     conn = mysql.connector.connect(user='root',
-                password='Djesteban1230++kali',
+                password='123456',
                 host='127.0.0.1',
                 database='agenda_proyecto')
     
