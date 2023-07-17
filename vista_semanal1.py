@@ -1,6 +1,7 @@
 import tkinter as tk
 import csv
 from datetime import datetime, timedelta
+import mysql.connector
 
 days = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo']
 
@@ -20,19 +21,27 @@ def show_week_events(start_date):
     event_frame = tk.Frame(root,background="grey")
     event_frame.place(x=0,y=40,width=800)
 
-    with open('agenda.csv', newline='') as csvfile:
-        reader = csv.DictReader(csvfile)
-        events = list(reader)
-
+    conn = mysql.connector.connect(user='root',
+                password='Djesteban1230++kali',
+                host='127.0.0.1',
+                database='agenda_proyecto')
+    
+    cur = conn.cursor()
+    consulta = """SELECT * FROM calendario;"""
+    cur.execute(consulta)
+    events = cur.fetchall()
+    cur.close()
+    conn.commit()
+    conn.close()
     week_start = start_date - timedelta(days=start_date.weekday())
     week_end = week_start + timedelta(days=6)
     week_events = [event for event in events if
-                   datetime.strptime(event['Fecha'], '%d/%m/%Y').date() >= week_start.date() and
-                   datetime.strptime(event['Fecha'], '%d/%m/%Y').date() <= week_end.date()]
+                   datetime.strptime(event[3], '%d/%m/%Y').date() >= week_start.date() and
+                   datetime.strptime(event[3], '%d/%m/%Y').date() <= week_end.date()]
 
     day_events = {}
     for event in week_events:
-        day = datetime.strptime(event['Fecha'], '%d/%m/%Y').strftime('%A')
+        day = datetime.strptime(event[3], '%d/%m/%Y').strftime('%A')
         if day == 'Monday':
             day = 'Lunes'
         elif day == 'Tuesday':
@@ -79,13 +88,13 @@ def show_week_events(start_date):
         if day in day_events:
             event_list = tk.Listbox(event_frame, width=17, height=10, borderwidth=2, relief='groove')
             for event in day_events[day]:
-                if event['Importancia'] == 'Importante':
+                if event[6] == 'Importante':
                     bg_color = '#99f1f8'  # celeste
                 else:
                     bg_color = '#FFFFFF'  # blanco
-                event_list.insert(tk.END, event['Titulo'])
-                event_list.insert(tk.END, event['Descripcion'])
-                event_list.insert(tk.END, event['Fecha'])
+                event_list.insert(tk.END, event[2])
+                event_list.insert(tk.END, event[7])
+                event_list.insert(tk.END, event[3])
                 event_list.insert(tk.END, '')
             event_list.configure(background=bg_color)  # establecer el color de fondo
             event_list.pack(side=tk.LEFT, padx=4, pady=10)
