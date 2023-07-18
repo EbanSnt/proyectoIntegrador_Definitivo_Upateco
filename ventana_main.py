@@ -31,17 +31,10 @@ class Programa:
                         descripcion VARCHAR(80),
                         etiquetas VARCHAR(80)
                         )ENGINE=InnoDB;"""
-        
-        #consulta_prueba = """
-        #SELECT * FROM calendario;
-        #                            """
-        
+    
         self.cur = self.conn.cursor()
         self.cur.execute(consulta)
-        #self.cur.execute(consulta_prueba)
-        resultado = self.cur.fetchall()
-
-        print(resultado)
+    
         self.conn.commit()
         self.cur.close()
         #self.conn.close()
@@ -153,7 +146,7 @@ class Programa:
         self.label_reloj.after(1000,self.label_fecha)
 
         self.vista_mensual()
-        self.eventos_del_mes()
+        #self.eventos_del_mes()
         self.root.mainloop()
 
     def columnas_treeview(self):
@@ -206,32 +199,32 @@ class Programa:
                                                      dato[8]))
 
 
-    def eventos_del_mes(self):
-        """Tabla que muestra los datos de los eventos del mes actual. Obtenidos desde el archivo agenda.csv"""
-        with open("agenda.csv", "r") as archivo:
-            agenda = []
-            eventos = csv.reader(archivo)
-            for linea in eventos:
-                # Se omiten las lineas en blanco y las cabeceras
-                if linea != [] and linea !=['Agendado', 'Titulo', 'Fecha', 'Hora Inicio', 'Hora Fin', 'Importancia', 'Descripcion', 'Etiquetas', 'Codigo']:
-                    auxiliar = linea[2]
-                    auxiliar2 = auxiliar.split("/")
-                    dia = f"{int(auxiliar2[1])}"
-                    mes_actual = f"{int(auxiliar2[1])}"
-                    mes_actual_casteado = int(mes_actual)
-                    year_actual = f"{int(auxiliar2[2])}"
-                    if int(mes_actual_casteado) == int(self.now.month) and int(year_actual) == int(self.now.year):
-                        agenda.append(linea)
+    # def eventos_del_mes(self):
+    #     """Tabla que muestra los datos de los eventos del mes actual. Obtenidos desde el archivo agenda.csv"""
+    #     with open("agenda.csv", "r") as archivo:
+    #         agenda = []
+    #         eventos = csv.reader(archivo)
+    #         for linea in eventos:
+    #             # Se omiten las lineas en blanco y las cabeceras
+    #             if linea != [] and linea !=['Agendado', 'Titulo', 'Fecha', 'Hora Inicio', 'Hora Fin', 'Importancia', 'Descripcion', 'Etiquetas', 'Codigo']:
+    #                 auxiliar = linea[2]
+    #                 auxiliar2 = auxiliar.split("/")
+    #                 dia = f"{int(auxiliar2[1])}"
+    #                 mes_actual = f"{int(auxiliar2[1])}"
+    #                 mes_actual_casteado = int(mes_actual)
+    #                 year_actual = f"{int(auxiliar2[2])}"
+    #                 if int(mes_actual_casteado) == int(self.now.month) and int(year_actual) == int(self.now.year):
+    #                     agenda.append(linea)
 
-        label = ""
-        for i in agenda:
-            a = f'Evento:{i[1]}\nFecha:{i[2]} {i[3]}-{i[4]} hs\nDescripcion:{i[6]}\n\n'
-            label = label + a
+    #     label = ""
+    #     for i in agenda:
+    #         a = f'Evento:{i[1]}\nFecha:{i[2]} {i[3]}-{i[4]} hs\nDescripcion:{i[6]}\n\n'
+    #         label = label + a
 
-        area = tk.Text(self.vista_mensual_frame)
-        area.place(x=350, y=30, width=300, height=300)
-        area.insert(0.0, f"Eventos del mes actual:\n\n{label}")
-        area.config(state="disabled")
+    #     area = tk.Text(self.vista_mensual_frame)
+    #     area.place(x=350, y=30, width=300, height=300)
+    #     area.insert(0.0, f"Eventos del mes actual:\n\n{label}")
+    #     area.config(state="disabled")
 
 
     def agregar_evento_ventana(self):
@@ -438,7 +431,6 @@ class Programa:
             dia = time.strftime("%d")
             mes = time.strftime("%m")
             year = time.strftime("%Y")
-            # self.now = datetime.now()
             fecha_hoy = f"{dia}/{mes}/{year}"
             auxiliar = self.fecha_entry.get().split("/")
             print(auxiliar)
