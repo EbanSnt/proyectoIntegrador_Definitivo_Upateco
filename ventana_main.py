@@ -145,7 +145,7 @@ class Programa:
         self.label_reloj.place(x=90, y=445)
         self.label_reloj.after(1000,self.label_fecha)
 
-        self.vista_mensual()
+        #self.vista_mensual()
         #self.eventos_del_mes()
         self.root.mainloop()
 
@@ -197,34 +197,6 @@ class Programa:
                                                      dato[2],dato[3],dato[4],dato[5],
                                                      dato[6],dato[7],
                                                      dato[8]))
-
-
-    # def eventos_del_mes(self):
-    #     """Tabla que muestra los datos de los eventos del mes actual. Obtenidos desde el archivo agenda.csv"""
-    #     with open("agenda.csv", "r") as archivo:
-    #         agenda = []
-    #         eventos = csv.reader(archivo)
-    #         for linea in eventos:
-    #             # Se omiten las lineas en blanco y las cabeceras
-    #             if linea != [] and linea !=['Agendado', 'Titulo', 'Fecha', 'Hora Inicio', 'Hora Fin', 'Importancia', 'Descripcion', 'Etiquetas', 'Codigo']:
-    #                 auxiliar = linea[2]
-    #                 auxiliar2 = auxiliar.split("/")
-    #                 dia = f"{int(auxiliar2[1])}"
-    #                 mes_actual = f"{int(auxiliar2[1])}"
-    #                 mes_actual_casteado = int(mes_actual)
-    #                 year_actual = f"{int(auxiliar2[2])}"
-    #                 if int(mes_actual_casteado) == int(self.now.month) and int(year_actual) == int(self.now.year):
-    #                     agenda.append(linea)
-
-    #     label = ""
-    #     for i in agenda:
-    #         a = f'Evento:{i[1]}\nFecha:{i[2]} {i[3]}-{i[4]} hs\nDescripcion:{i[6]}\n\n'
-    #         label = label + a
-
-    #     area = tk.Text(self.vista_mensual_frame)
-    #     area.place(x=350, y=30, width=300, height=300)
-    #     area.insert(0.0, f"Eventos del mes actual:\n\n{label}")
-    #     area.config(state="disabled")
 
 
     def agregar_evento_ventana(self):
